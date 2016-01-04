@@ -31,7 +31,7 @@
 #
 # For detailed explanation about the parameters below see: https://docs.newrelic.com/docs/php/php-agent-phpini-settings
 #
-define newrelic::php (
+newrelic::php (
   $newrelic_php_package_ensure                           = 'present',
   $newrelic_php_service_ensure                           = 'running',
   $newrelic_php_conf_dir                                 = $newrelic::params::newrelic_php_conf_dir,
@@ -108,6 +108,7 @@ define newrelic::php (
 
   ::newrelic::php::newrelic_ini { $newrelic_php_conf_dir:
     newrelic_license_key => $newrelic_license_key,
+    newrelic_ini_appname => $newrelic_ini_appname,
     before               => [ File['/etc/newrelic/newrelic.cfg'], Service[$newrelic_php_service] ],
     require              => Package[$newrelic_php_package],
     notify               => Service[$newrelic_php_service],
